@@ -50,7 +50,7 @@
         public static void Run(DTE dte, ErrorItem selectedError)
         {
             // SA1000: The spacing around the keyword 'fixed' is invalid.	
-            string keyword = selectedError.Description.Split(' ')[6].Replace("'", string.Empty);
+            string keyword = selectedError.Description.Split(' ')[9].Replace("'", string.Empty);
 
             if (SpaceKeywords.Contains(keyword))
             {

@@ -11,7 +11,7 @@ namespace Michmela44.StyleRepair.Rules.Readability
             error.Navigate();
             EditPoint2 ep = ErrorUtilities.GetEditPoint(dte);
             ep.StartOfLine();
-            string variableName = error.Description.Split(" ".ToCharArray())[4];
+            string variableName = error.Description.Split(" ".ToCharArray())[7];
             string replaceString = ep.GetLines(ep.Line, ep.Line + 1);
             replaceString = Regex.Replace(replaceString, string.Format(@"(\s|\()({0})(\W)", variableName), "$1this.$2$3",
                                           RegexOptions.None);
