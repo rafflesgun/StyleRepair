@@ -16,6 +16,7 @@ using Michmela44.StyleRepair.Rules.Ordering;
 using Michmela44.StyleRepair.Rules.Readability;
 using Michmela44.StyleRepair.Rules.Spacing;
 using Michmela44.StyleRepair.Views;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace Michmela44.StyleRepair
 {
@@ -115,23 +116,86 @@ namespace Michmela44.StyleRepair
                        out result));*/
         }
 
+        private List<VsError> GetErrorList()
+        {
+            var vsErrorList = new List<VsError>();
+
+            Window window = this.dte.Windows.Item(WindowKinds.vsWindowKindErrorList);
+            var myErrorList = (ErrorList)window.Object;
+
+            var objer = (object[])myErrorList.SelectedItems;
+
+            if (objer != null)
+            {
+                foreach (object item in objer)
+                {
+                    var errorItem = item as ErrorItem;
+                    if (errorItem != null)
+                    {
+                        vsErrorList.Add(new VsError()
+                        {
+                            Description = errorItem.Description,
+                            FileName = errorItem.FileName,
+                            Line = errorItem.Line,
+                            ErrorItem = errorItem,
+                        });
+                    }
+                }
+            }
+            else
+            {
+                return this.GetErrorList_VS2015();
+            }
+
+            return vsErrorList;
+        }
+
+        private List<VsError> GetErrorList_VS2015()
+        {
+            var vsErrorList = new List<VsError>();
+
+            var errorList = this.GetService(typeof(SVsErrorList)) as IVsTaskList2;
+
+            if (errorList != null)
+            {
+                IVsEnumTaskItems enumerator;
+                errorList.EnumSelectedItems(out enumerator);
+                var arr = new IVsTaskItem[1];
+
+                while (enumerator.Next(1, arr, null) == 0)
+                {
+                    string description;
+                    arr[0].get_Text(out description);
+
+                    string fileName;
+                    arr[0].Document(out fileName);
+
+                    int lineNumber;
+                    arr[0].Line(out lineNumber);
+
+                    vsErrorList.Add(new VsError()
+                    {
+                        Description = description,
+                        FileName = fileName,
+                        Line = lineNumber,
+                        ErrorItem = arr[0],
+                    });
+                }
+            }
+
+            return vsErrorList;
+        }
+
         private void FixStyleCopWarnings(object sender, EventArgs e)
         {
-            Window window = this.dte.Windows.Item(WindowKinds.vsWindowKindErrorList);
-            var myErrorList = (ErrorList) window.Object;
-
-            var objer = (object[]) myErrorList.SelectedItems;
-
             var selectedErrors = new List<StyleCopError>();
-            foreach (object item in objer)
+
+            var errorList = this.GetErrorList();
+
+            foreach (var item in errorList)
             {
-                var errorItem = item as ErrorItem;
-                if (errorItem != null)
-                {
-                    var styleCopError = new StyleCopError(this.dte, errorItem.Description.Substring(0, 6))
-                                            {Error = errorItem};
-                    selectedErrors.Add(styleCopError);
-                }
+                var styleCopError = new StyleCopError(this.dte, item.Description.Substring(0, 6), item);
+                selectedErrors.Add(styleCopError);
             }
 
             IOrderedEnumerable<StyleCopError> result = from error in selectedErrors
@@ -265,10 +329,10 @@ namespace Michmela44.StyleRepair
                         menuItem.Enabled = false;
                         menuItem.Visible = false;
                     }
+                    
+                    var errorList = this.GetErrorList();
 
-                    var objer = (object[]) myErrorList.SelectedItems;
-
-                    foreach (ErrorItem item in objer)
+                    foreach (var item in errorList)
                     {
                         if (item.Description.Substring(0, 2).ToUpper() != "SA")
                         {

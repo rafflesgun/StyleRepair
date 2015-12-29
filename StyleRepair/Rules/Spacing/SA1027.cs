@@ -3,6 +3,7 @@
     using System.Text.RegularExpressions;
     using EnvDTE;
     using EnvDTE80;
+    using Michmela44.StyleRepair.Objects;
 
     /// <summary>
     /// A violation of this rule occurs whenever the code contains a tab character.
@@ -13,7 +14,7 @@
     /// </summary>
     public class SA1027
     {
-        public static void Run(DTE dte, ErrorItem selectedError)
+        public static void Run(DTE dte, VsError selectedError)
         {
             selectedError.Navigate();
             EditPoint2 ep = ErrorUtilities.GetEditPoint(dte);

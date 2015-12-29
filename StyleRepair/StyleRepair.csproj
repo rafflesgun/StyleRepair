@@ -194,6 +194,7 @@
     <Compile Include="Guids.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Objects\StyleCopError.cs" />
+    <Compile Include="Objects\VsError.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -7,14 +7,19 @@ namespace Michmela44.StyleRepair.Objects
     {
         private readonly string errorCode;
         private DTE dte;
+        private VsError vsError;
 
-        public StyleCopError(DTE dte, string errorCode)
+        public StyleCopError(DTE dte, string errorCode, VsError error)
         {
             this.errorCode = errorCode;
             this.dte = dte;
+            this.vsError = error;
         }
 
-        public ErrorItem Error { get; set; }
+        public VsError Error
+        {
+            get { return this.vsError; }
+        }
 
         public string ErrorCode
         {

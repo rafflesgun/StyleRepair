@@ -3,7 +3,7 @@
     using System.Text.RegularExpressions;
     using EnvDTE;
     using EnvDTE80;
-
+    using Objects;
     public static class ErrorUtilities
     {
         public static EditPoint2 GetEditPoint(DTE dte)
@@ -14,7 +14,7 @@
             return (EditPoint2)selection.ActivePoint.CreateEditPoint();
         }
 
-        public static void RegExUpdateWholeDocument(string findPattern, string replacePattern, ErrorItem selectedError, DTE dte)
+        public static void RegExUpdateWholeDocument(string findPattern, string replacePattern, VsError selectedError, DTE dte)
         {
             selectedError.Navigate();
             Document curDoc = dte.ActiveDocument;
@@ -28,7 +28,7 @@
             textDoc.Selection.Insert(formattedText);
         }
 
-        public static void RegExUpdate(string findPattern, string replacePattern, ErrorItem selectedError, DTE dte)
+        public static void RegExUpdate(string findPattern, string replacePattern, VsError selectedError, DTE dte)
         {
             selectedError.Navigate();
             EditPoint2 ep = GetEditPoint(dte);

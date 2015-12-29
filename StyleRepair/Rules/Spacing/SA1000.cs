@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using EnvDTE;
     using EnvDTE80;
-
+    using Objects;
     /// <summary>
     /// A violation of this rule occurs when the spacing around a keyword is incorrect.
     /// The following C# keywords must always be followed by a single space: catch, fixed, for, foreach, from, group, if, in, into, join, let, lock, orderby, return, select, stackalloc, switch, throw, using, where, while, yield.
@@ -47,7 +47,7 @@
                                                                         "unchecked"
                                                                     };
 
-        public static void Run(DTE dte, ErrorItem selectedError)
+        public static void Run(DTE dte, VsError selectedError)
         {
             // SA1000: The spacing around the keyword 'fixed' is invalid.	
             string keyword = selectedError.Description.Split(' ')[9].Replace("'", string.Empty);

@@ -1,5 +1,6 @@
 ﻿using EnvDTE;
 using EnvDTE80;
+using Michmela44.StyleRepair.Objects;
 
 namespace Michmela44.StyleRepair.Rules.Readability
 {
@@ -13,7 +14,7 @@ namespace Michmela44.StyleRepair.Rules.Readability
         /// </summary>
         /// <param name="dte">Design time environment the update is taking place in</param>
         /// <param name="selectedError">The error that we are trying to fix</param>
-        public static void Run(DTE dte, ErrorItem selectedError)
+        public static void Run(DTE dte, VsError selectedError)
         {
             ErrorUtilities.RegExUpdateWholeDocument(@"(\s+)[System\.]*Array(\s+)", "$1array$2", selectedError, dte);
             ErrorUtilities.RegExUpdateWholeDocument(@"(\s+)[System\.]*Boolean(\s+)", "$1bool$2", selectedError, dte);

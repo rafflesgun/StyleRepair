@@ -3,13 +3,14 @@ using System.IO;
 using System.Reflection;
 using EnvDTE;
 using EnvDTE80;
+using Michmela44.StyleRepair.Objects;
 using NArrange.Core;
 
 namespace Michmela44.StyleRepair.Rules.Ordering
 {
     public class SA1200
     {
-        public static void Run(DTE dte, ErrorItem selectedError)
+        public static void Run(DTE dte, VsError selectedError)
         {
             var logger = new ConsoleLogger {Trace = true};
             Console.WriteLine();

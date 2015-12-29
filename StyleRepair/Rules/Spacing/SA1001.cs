@@ -3,6 +3,7 @@
     using System.Text.RegularExpressions;
     using EnvDTE;
     using EnvDTE80;
+    using Michmela44.StyleRepair.Objects;
 
     /// <summary>
     /// A violation of this rule occurs when the spacing around a comma is incorrect.
@@ -10,7 +11,7 @@
     /// </summary>
     public class SA1001
     {
-        public static void Run(DTE dte, ErrorItem selectedError)
+        public static void Run(DTE dte, VsError selectedError)
         {
             selectedError.Navigate();
             EditPoint2 ep = ErrorUtilities.GetEditPoint(dte);

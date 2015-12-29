@@ -3,10 +3,11 @@
     using System;
     using EnvDTE;
     using EnvDTE80;
+    using Michmela44.StyleRepair.Objects;
 
     public static class SA1009
     {
-        public static void Run(DTE environment, ErrorItem selectedError)
+        public static void Run(DTE environment, VsError selectedError)
         {
             if (selectedError == null)
             {

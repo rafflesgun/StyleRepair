@@ -1,14 +1,13 @@
 ﻿namespace Michmela44.StyleRepair.Rules.Spacing
 {
     using System.Text.RegularExpressions;
-
     using EnvDTE;
-
     using EnvDTE80;
+    using Michmela44.StyleRepair.Objects;
 
     public static class SA1008
     {
-        public static void Run(DTE dte, ErrorItem selectedError)
+        public static void Run(DTE dte, VsError selectedError)
         {
             selectedError.Navigate();
 

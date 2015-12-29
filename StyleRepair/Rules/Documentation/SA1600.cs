@@ -3,6 +3,7 @@
     using System;
     using EnvDTE;
     using EnvDTE80;
+    using Objects;
 
     /// <summary>
     /// Object that details how to fix a SA1600 StyleCop warning
@@ -14,7 +15,7 @@
         /// </summary>
         /// <param name="dte">Current design environment</param>
         /// <param name="selectedError">Error selected by the user to fix.</param>
-        public static void Run(DTE dte, ErrorItem selectedError)
+        public static void Run(DTE dte, VsError selectedError)
         {
             EditPoint2 ep = ErrorUtilities.GetEditPoint(dte);
             selectedError.Navigate();

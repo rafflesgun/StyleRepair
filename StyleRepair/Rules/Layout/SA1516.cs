@@ -2,10 +2,11 @@
 {
     using EnvDTE;
     using EnvDTE80;
+    using Objects;
 
     public static class SA1516
     {
-        public static void Run(DTE dte, ErrorItem selectedError)
+        public static void Run(DTE dte, VsError selectedError)
         {
             selectedError.Navigate();
 
