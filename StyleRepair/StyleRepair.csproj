@@ -217,6 +217,7 @@
     <Compile Include="Rules\Naming\SA1309.cs" />
     <Compile Include="Rules\Ordering\SA1200.cs" />
     <Compile Include="Rules\Ordering\SA1210.cs" />
+    <Compile Include="Rules\Readability\SA1126.cs" />
     <Compile Include="Rules\Readability\SA1101.cs" />
     <Compile Include="Rules\Readability\SA1106.cs" />
     <Compile Include="Rules\Readability\SA1121.cs" />

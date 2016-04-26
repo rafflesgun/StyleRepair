@@ -261,6 +261,9 @@ namespace Michmela44.StyleRepair
                     case "SA1122":
                         SA1122.Run(this.dte, item.Error);
                         break;
+                    case "SA1126":
+                        SA1126.Run(this.dte, item.Error);
+                        break;
                         //case "SA1202":
                         //    Rules.SA1202 errorFixer = new Rules.SA1202();
                         //    errorFixer.Run(this.dte, item.Error);
